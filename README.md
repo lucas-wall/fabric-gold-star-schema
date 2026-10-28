@@ -14,7 +14,7 @@ flowchart LR
 ```
 
 ## Stack
-`Microsoft Fabric` (Lakehouse, Notebooks, Semantic Model) · `Spark SQL` · `Delta Lake` · `Power BI` (Direct Lake, DAX, RLS) · `DuckDB` · `pytest` · `GitHub Actions`
+`Microsoft Fabric` (Lakehouse, Warehouse, Notebooks, Semantic Model) · `Spark SQL` · `Delta Lake` · `Power BI` (Direct Lake, DAX, RLS) · `T-SQL` · `DuckDB` · `pytest` · `GitHub Actions` · `Azure DevOps`
 
 ## What it handles
 - **SCD Type 2 in one MERGE:** changed attributes expire the old version and insert a new one, unchanged rows are untouched, re-runs add nothing
@@ -22,7 +22,8 @@ flowchart LR
 - **Referential integrity:** bookings with no matching property get the `UNKNOWN` key, so totals never silently drop
 - **Star schema:** integer `date_key`, hashed surrogate keys, one fact and conformed dimensions
 - **Capacity-aware:** Delta tables with V-Order, read by Direct Lake, so there is no import refresh burning capacity
-- **Row-level security:** DAX role on the dimension, propagated to facts by the relationship (`semantic/rls_region_role.dax`)
+- **Fabric Warehouse:** gold served through cross-database CTAS, with a `gold_reader` RBAC role and a T-SQL row-level security policy on dimension and fact (`sql/warehouse/`)
+- **Row-level security in Power BI:** DAX role on the dimension, propagated to facts by the relationship (`semantic/rls_region_role.dax`)
 
 ## Run the tests
 ```bash
