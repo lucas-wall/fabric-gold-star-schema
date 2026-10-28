@@ -1,0 +1,9 @@
+// Power BI semantic model (Direct Lake) | role "Regional Manager"
+// Table filter on dim_property; the relationship propagates it to fact_bookings.
+// user_region is a small mapping table: user_email, region.
+
+[region]
+    = LOOKUPVALUE (
+        user_region[region],
+        user_region[user_email], USERPRINCIPALNAME ()
+    )
